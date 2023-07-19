@@ -14,12 +14,14 @@ document.querySelector(".nav-toggle-btn").onclick = function () {
  *  header and back top btn visible when window scroll down to 200px
  */
 var header = document.querySelector(".header");
-
+var backToBtn = document.querySelector("[data-back-top-btn]");
 var activeElementScroll = function () {
   if (window.scrollY > 200) {
     header.classList.add("active");
+    backToBtn.classList.add("active");
   } else {
     header.classList.remove("active");
+    backToBtn.classList.remove("active");
   }
 };
 window.addEventListener("scroll", activeElementScroll);
@@ -108,3 +110,29 @@ const sliderInit = function (currentSlider) {
 for (var i = 0, len = slider.length; i < len; i++) {
   sliderInit(slider[i]);
 }
+
+// accordion
+var accordion = document.querySelectorAll("[data-accordion]");
+
+var lastActiveAccordion;
+
+var accordionInit = function (currentAccordion) {
+  const accordionBtn = currentAccordion.querySelector("[data-accordion-btn]");
+  accordionBtn.addEventListener("click", function () {
+    if (currentAccordion.classList.contains("active")) {
+      currentAccordion.classList.toggle("active");
+    } else {
+      if (lastActiveAccordion) lastActiveAccordion.classList.remove("active");
+      currentAccordion.classList.add("active");
+    }
+    lastActiveAccordion = currentAccordion;
+  });
+};
+
+for (let i = 0; i < accordion.length; i++) {
+  accordionInit(accordion[i]);
+}
+
+
+// backtotop
+
