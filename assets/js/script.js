@@ -119,13 +119,16 @@ var lastActiveAccordion;
 var accordionInit = function (currentAccordion) {
   const accordionBtn = currentAccordion.querySelector("[data-accordion-btn]");
   accordionBtn.addEventListener("click", function () {
+    // Kiểm tra xem currentAccordion đã có class "active" chưa. Nếu đã có, thì xóa class "active" để đóng accordion
     if (currentAccordion.classList.contains("active")) {
       currentAccordion.classList.toggle("active");
     } else {
+      //Nếu currentAccordion không có class "active", tức là nó đang trong trạng thái rút gọn, thì xóa class "active" của accordion trước đó (nếu có) để ẩn nội dung của nó
       if (lastActiveAccordion) lastActiveAccordion.classList.remove("active");
+      //Cuối cùng, thêm class "active" vào currentAccordion, biến nó thành accordion hiện tại đang mở rộng.
       currentAccordion.classList.add("active");
     }
-    lastActiveAccordion = currentAccordion;
+    lastActiveAccordion = currentAccordion;//Cập nhật biến lastActiveAccordion để lưu trữ accordion cuối cùng được mở rộng, để khi người dùng bấm vào một accordion khác, chúng ta có thể đóng accordion trước đó (nếu có).
   });
 };
 
